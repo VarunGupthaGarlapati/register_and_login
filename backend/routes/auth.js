@@ -37,9 +37,10 @@ router.post('/forgot-password', async (req, res) => {
   user.resetTokenExpiry = Date.now() + 3600000;
   await user.save();
 
-  console.log(`Reset link: http://localhost:3000/reset-password.html?token=${token}`);
-  res.json({ message: 'Reset link sent (check console)' });
+  const resetLink = `http://localhost:3000/reset-password.html?token=${token}`;
+  res.json({ message: 'Reset link generated successfully', resetLink });
 });
+
 
 router.post('/reset-password', async (req, res) => {
   const { token, newPassword } = req.body;
