@@ -37,7 +37,7 @@ router.post('/forgot-password', async (req, res) => {
   user.resetTokenExpiry = Date.now() + 3600000;
   await user.save();
 
-  const resetLink = `http://localhost:3000/reset-password.html?token=${token}`;
+  const resetLink = `https://register-and-login-pdbg.onrender.com/reset-password.html?token=${token}`;
   res.json({ message: 'Reset link generated successfully', resetLink });
 });
 
