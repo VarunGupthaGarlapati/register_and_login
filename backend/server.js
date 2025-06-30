@@ -9,15 +9,36 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // For JSON requests (e.g., fetch from JS)
-app.use(express.urlencoded({ extended: true })); // For HTML form submissions
+app.use(express.json()); // for JSON (like fetch requests)
+app.use(express.urlencoded({ extended: true })); // for HTML form submissions
 
-// Serve static frontend files
+// Serve frontend static files
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-// Route for frontend root
+// Route for default homepage (register)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/register.html'));
+});
+
+// Explicitly serve individual HTML pages
+app.get('/index.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
+
+app.get('/register.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/register.html'));
+});
+
+app.get('/dashboard.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dashboard.html'));
+});
+
+app.get('/forgot-password.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/forgot-password.html'));
+});
+
+app.get('/reset-password.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/reset-password.html'));
 });
 
 // API routes
@@ -27,9 +48,6 @@ app.use('/api', authRoutes);
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB connection error:', err));
-app.get('/reset-password.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/reset-password.html'));
-});
 
 // Start server
 const PORT = process.env.PORT || 3000;
