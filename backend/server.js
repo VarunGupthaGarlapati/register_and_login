@@ -27,6 +27,9 @@ app.use('/api', authRoutes);
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB connection error:', err));
+app.get('/reset-password.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/reset-password.html'));
+});
 
 // Start server
 const PORT = process.env.PORT || 3000;
